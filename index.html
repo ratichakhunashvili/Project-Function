@@ -2,17 +2,67 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Calendar with Excel Data</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Calendar</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <h1>My Calendar</h1>
 
-    <input type="file" id="excelFile" accept=".xlsx,.xls" />
+    <div id="controls">
+      <button id="prevMonth">← Previous</button>
+      <span id="monthYear"></span>
+      <button id="nextMonth">Next →</button>
+    </div>
+
+    <div id="uploadSection">
+      <label for="excelFile">📁 Import Events from Excel:</label>
+      <input type="file" id="excelFile" accept=".xlsx,.xls" multiple />
+    </div>
+
+    <div id="uploadedFilesSection">
+      <h2>📋 Uploaded Files</h2>
+      <ul id="uploadedFilesList"></ul>
+    </div>
 
     <div id="calendar"></div>
 
-    <!-- SheetJS library -->
+    <div id="lessonModal" class="modal" aria-hidden="true">
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-header">
+          <div>
+            <div id="modalTitle" class="modal-title">Add lesson</div>
+            <div id="modalDate" class="modal-subtitle"></div>
+          </div>
+          <button id="modalClose" class="icon-btn" type="button" aria-label="Close">✕</button>
+        </div>
+
+        <form id="lessonForm" class="modal-body">
+          <input type="hidden" id="modalDateValue" />
+
+          <label class="field">
+            <span>Lesson title</span>
+            <input id="lessonTitle" type="text" placeholder="e.g., Photoshop" required />
+          </label>
+
+          <label class="field">
+            <span>Time</span>
+            <input id="lessonTime" type="time" required />
+          </label>
+
+          <label class="field">
+            <span>Description (optional)</span>
+            <textarea id="lessonDesc" rows="3" placeholder="Room, trainer, notes..."></textarea>
+          </label>
+
+          <div class="modal-actions">
+            <button id="modalCancel" class="btn-secondary" type="button">Cancel</button>
+            <button class="btn-primary" type="submit">Add lesson</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
     <script src="script.js"></script>
   </body>
